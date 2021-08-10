@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TechJobsPersistent.Data;
 
 namespace TechJobsPersistent
 {
@@ -23,7 +25,15 @@ namespace TechJobsPersistent
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            //services.AddControllersWithViews();  //old line from startup code
+
+            // the AddControllersWithViews()
+
+            string connectionString = "server=localhost;userid=techjobs;password=codingisthebeast;database=techjobs;";
+            var serverVersion = new MySqlServerVersion(new Version(8, 0, 25));
+
+            services.AddDbContext<JobDbContext>(options =>
+                   options.UseMySql(connectionString, serverVersion));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
