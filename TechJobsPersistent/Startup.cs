@@ -25,11 +25,11 @@ namespace TechJobsPersistent
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddControllersWithViews();  //old line from startup code
+            services.AddControllersWithViews();  //old line from startup code. // I had this commneted out, and had to restore it to get it to finally work! ? //
 
-            // the AddControllersWithViews()
+            // AddControllersWithViews() // I can't remember where this came from. //
 
-            string connectionString = "server=localhost;userid=techjobs;password=codingisthebeast;database=techjobs;";
+            string connectionString = "server=localhost;userid=techjobs;password=techjobs;database=techjobs;";
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 25));
 
             services.AddDbContext<JobDbContext>(options =>
